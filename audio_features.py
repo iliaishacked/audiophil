@@ -1,6 +1,9 @@
 import numpy as np
 import nolds
 
+def a(d):
+    return np.array(d)
+
 def IEMG(data):
     return np.sum(np.square(data.astype(np.float)))
 
@@ -108,4 +111,5 @@ def get_features_from_stream(
 
     return a([ f(strea) for f in fncs])
 
-
+def get_ff():
+    return ["MAV", "MMAV1", "MMAV2", "SSI", "VAR", "RMS", "WL", "ZC", "SSC", "WAMP", "STDDEV"]

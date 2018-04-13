@@ -2,7 +2,6 @@
 
 import numpy as np
 
-
 def load_16bit_pcm(path, lower_endian = True):
     # Can easily abstract it away. Maybe do it later
     endianness = '<' if lower_endian else '>'
