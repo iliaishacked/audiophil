@@ -23,13 +23,13 @@ def kfold(X, y, clfs_names, num_splits, cm=False, cm_size=15):
 
             #cur_acc = f1_score(y_test, y_res, average="macro")
             cur_acc = accuracy_score(y_test, y_res)
-		
-	    if cm:
-		mycm = confusion_matrix(y_test, y_res, labels=labels)
-		au.plot_confusion_matrix(mycm, classes=labels, normalize=False, title="{} {}".format(name, "%0.2f" % accuracy_score(y_test, y_res)), cm_size=cm_size)
+
+            if cm:
+                mycm = confusion_matrix(y_test, y_res, labels=labels)
+                au.plot_confusion_matrix(mycm, classes=labels, normalize=False, title="{} {}".format(name, "%0.2f" % accuracy_score(y_test, y_res)), cm_size=cm_size)
 
             scores.append(cur_acc)
-	    classifiers.append(cur)  
+            classifiers.append(cur)
 
         scores = np.array(scores)
         d[name].append("KFOLD: %0.2f (+/- %0.2f)" % (scores.mean(), scores.std() * 2))

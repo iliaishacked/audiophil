@@ -2,6 +2,7 @@
 
 from collections import defaultdict
 import audio_features as fea
+import tdoa
 import numpy as np
 import itertools
 import file_processing as iop
@@ -16,13 +17,13 @@ def split_into_channels(sig, num_chan=2):
         for j in xrange(num_chan):
             outputs[j].append(sig[i+j])
 
-    return [a(outputs[x]) for x in outputs]
+    return [np.array(outputs[x]) for x in outputs]
 
 def play_signal(signal, fs = 44100, max_vol=None):
     if max_vol is not None:
-	signal = np.array(signal).copy()
-	signal = signal/max(np.abs(signal))
-	signal = signal*max_vol
+        signal = np.array(signal).copy()
+        signal = signal/max(np.abs(signal))
+        signal = signal*max_vol
     scikits.audiolab.play(signal, fs=fs)
 
 
@@ -64,14 +65,16 @@ def plot_confusion_matrix(cm, classes,
 
     thresh = cm.max() / 2.
     for i, j in itertools.product(range(cm.shape[0]), range(cm.shape[1])):
-	if normalize:
-	   plt.text(j, i, "%0.2f"% cm[i, j], horizontalalignment="center", color="white" if cm[i, j] > thresh else "black")
-	else:
-	   plt.text(j, i, "%d"% int(cm[i, j]), horizontalalignment="center", color="white" if cm[i, j] > thresh else "black")
+        if normalize:
+            plt.text(j, i, "%0.2f"% cm[i, j], horizontalalignment="center", color="white" if cm[i, j] > thresh else "black")
+        else:
+            plt.text(j, i, "%d"% int(cm[i, j]), horizontalalignment="center", color="white" if cm[i, j] > thresh else "black")
 
     plt.tight_layout()
     plt.ylabel('True label')
     plt.xlabel('Predicted label')
     plt.show()
+
+
 
 
